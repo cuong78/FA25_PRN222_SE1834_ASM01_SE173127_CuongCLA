@@ -1,0 +1,15 @@
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\bin\Debug\net8.0\zEVRental.Services.CuongCLA.deps.json
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\bin\Debug\net8.0\zEVRental.Services.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\bin\Debug\net8.0\zEVRental.Services.CuongCLA.pdb
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.pdb
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.csproj.AssemblyReference.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.AssemblyInfoInputs.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.AssemblyInfo.cs
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.csproj.CoreCompileInputs.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRenta.E886C6D6.Up2Date
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\refint\zEVRental.Services.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.pdb
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\ref\zEVRental.Services.CuongCLA.dll

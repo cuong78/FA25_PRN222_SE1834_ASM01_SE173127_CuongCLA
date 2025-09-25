@@ -1,0 +1,85 @@
+﻿@page
+@model zEVRental.RazorWebApp.CuongCLA.Pages.BookingCuongClas.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>BookingCuongCla</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.CustomerId" class="control-label"></label>
+                <select asp-for="BookingCuongCla.CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.VehicleId" class="control-label"></label>
+                <select asp-for="BookingCuongCla.VehicleId" class ="form-control" asp-items="ViewBag.VehicleId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.StationId" class="control-label"></label>
+                <select asp-for="BookingCuongCla.StationId" class ="form-control" asp-items="ViewBag.StationId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.PlannedPickUpDate" class="control-label"></label>
+                <input asp-for="BookingCuongCla.PlannedPickUpDate" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.PlannedPickUpDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.PlannedReturnDate" class="control-label"></label>
+                <input asp-for="BookingCuongCla.PlannedReturnDate" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.PlannedReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.ActualPickUpDate" class="control-label"></label>
+                <input asp-for="BookingCuongCla.ActualPickUpDate" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.ActualPickUpDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.ActualReturnDate" class="control-label"></label>
+                <input asp-for="BookingCuongCla.ActualReturnDate" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.ActualReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.TotalCost" class="control-label"></label>
+                <input asp-for="BookingCuongCla.TotalCost" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.TotalCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.DepositAmount" class="control-label"></label>
+                <input asp-for="BookingCuongCla.DepositAmount" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.DepositAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BookingCuongCla.IsDepositPaid" /> @Html.DisplayNameFor(model => model.BookingCuongCla.IsDepositPaid)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.Notes" class="control-label"></label>
+                <input asp-for="BookingCuongCla.Notes" class="form-control" />
+                <span asp-validation-for="BookingCuongCla.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCuongCla.CreatedBy" class="control-label"></label>
+                <select asp-for="BookingCuongCla.CreatedBy" class ="form-control" asp-items="ViewBag.CreatedBy"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

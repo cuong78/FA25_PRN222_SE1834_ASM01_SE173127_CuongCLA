@@ -1,0 +1,40 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas
+{
+    [Authorize(Roles = "1,2")]
+    public class IndexModel : PageModel
+    {
+        // private readonly zEVRental.Repositories.CuongCLA.Models.FA25_PRN222_SE1834_G3_EVRentalContext _context;
+        private readonly IPaymentCuongClaService _service;
+        public IndexModel(IPaymentCuongClaService service)
+        {
+            _service = service;
+        }
+
+        public IList<PaymentCuongCla> PaymentCuongCla { get; set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+
+
+
+            PaymentCuongCla = await _service.GetAllAsync();
+            //PaymentCuongCla = await _context.PaymentCuongClas
+            //    .Include(p => p.Booking)
+            //    .Include(p => p.Customer)
+            //    .Include(p => p.ProcessedByNavigation).ToListAsync();
+
+
+        }
+    }
+}

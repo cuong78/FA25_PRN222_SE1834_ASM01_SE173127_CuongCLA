@@ -1,0 +1,433 @@
+﻿@page
+@model zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas.IndexModel
+@{
+    ViewData["Title"] = "Payment Management";
+}
+
+<!-- Custom CSS -->
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0 0 1rem 1rem;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        transition: all 0.3s ease;
+    }
+
+        .card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+    .table-container {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .table thead th {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: none;
+        font-weight: 600;
+        color: #495057;
+        padding: 1rem 0.75rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+    .table tbody td {
+        padding: 1rem 0.75rem;
+        vertical-align: middle;
+        border-color: #e9ecef;
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-success {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+
+    .status-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .status-info {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .btn-action {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin: 0 0.125rem;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+
+    .btn-edit {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+        .btn-edit:hover {
+            background-color: #0b5ed7;
+            color: white;
+        }
+
+    .btn-view {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-view:hover {
+            background-color: #5c636a;
+            color: white;
+        }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+            color: white;
+        }
+
+    .search-filter-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .stats-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .amount-cell {
+        font-weight: 600;
+        color: #28a745;
+    }
+
+    .date-cell {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    .responsive-table {
+        min-width: 100%;
+        overflow-x: auto;
+    }
+
+    @@media (max-width: 768px) {
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            min-width: 1200px;
+        }
+
+        .btn-action {
+            display: block;
+            margin: 0.125rem 0;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="mb-0">
+                    <i class="fas fa-credit-card me-3"></i>
+                    Payment Management
+                </h1>
+                <p class="mb-0 mt-2 opacity-75">Manage and track all payment transactions</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a asp-page="Create" class="btn btn-light btn-lg">
+                    <i class="fas fa-plus me-2"></i>
+                    Create New Payment
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="stats-card">
+                <div class="stats-number">@Model.PaymentCuongCla.Count()</div>
+                <div>Total Payments</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                <div class="stats-number">@Model.PaymentCuongCla.Where(p => p.PaymentStatus == "Success").Count()</div>
+                <div>Completed</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333;">
+                <div class="stats-number">@Model.PaymentCuongCla.Where(p => p.PaymentStatus == "Pending").Count()</div>
+                <div>Pending</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                <div class="stats-number">@Model.PaymentCuongCla.Where(p => p.IsDeposit).Count()</div>
+                <div>Deposits</div>
+            </div>
+        </div>
+    </div>
+
+    @* // Payment Search  *@
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-primary mb-3"><i class="bi bi-search me-2"></i> Search Records</h5>
+            <form asp-page="./Index" method="get">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="paymentMethodSearch" class="form-label">Payment Method</label>
+                        <input type="text" class="form-control" id="paymentMethodSearch" name="paymentMethod" value="@Model.paymentMethod" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="amountSearch" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="amountSearch" name="amount" value="@Model.amount" step="0.01" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="statusSearch" class="form-label">Status</label>
+                        <input type="text" class="form-control" id="statusSearch" name="status" value="@Model.status" />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary me-2" type="submit">
+                        <i class="bi bi-search me-1"></i> Search
+                    </button>
+                    <a class="btn btn-outline-secondary" asp-page="./Index">
+                        Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Payments Table -->
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="paymentsTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="fas fa-calendar me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].PaymentDate)
+                        </th>
+                        <th>
+                            <i class="fas fa-dollar-sign me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].Amount)
+                        </th>
+                        <th>
+                            <i class="fas fa-credit-card me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].PaymentMethod)
+                        </th>
+                        <th>
+                            <i class="fas fa-check-circle me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].PaymentStatus)
+                        </th>
+
+                        <th>
+                            <i class="fas fa-undo me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].Notes)
+                        </th>
+
+                        <th>
+                            <i class="fas fa-shield-alt me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].IsDeposit)
+                        </th>
+
+                        <th>
+                            <i class="fas fa-undo me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].DepositReturnAmount)
+                        </th>
+
+                        <th>
+                            <i class="fas fa-bookmark me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].Booking)
+                        </th>
+
+                        <th>
+                            <i class="fas fa-user-cog me-1"></i>
+                            @Html.DisplayNameFor(model => model.PaymentCuongCla[0].ProcessedByNavigation)
+                        </th>
+                        <th>
+                            <i class="fas fa-cogs me-1"></i>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PaymentCuongCla)
+                    {
+                        <tr>
+                            <td class="date-cell">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                @Html.DisplayFor(modelItem => item.PaymentDate)
+                            </td>
+                            <td class="amount-cell">
+                                <strong>@Html.DisplayFor(modelItem => item.Amount)</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">
+                                    @Html.DisplayFor(modelItem => item.PaymentMethod)
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status-badge @(item.PaymentStatus == "Success" ? "status-success" :
+                                                                                                                                                                         item.PaymentStatus == "Pending" ? "status-warning" :
+                                                                                                                                                                         item.PaymentStatus == "Failed" ? "status-danger" : "status-info")">
+                                @Html.DisplayFor(modelItem => item.PaymentStatus)
+                            </span>
+                        </td>
+
+                            <td class="amount-cell">
+                                @Html.DisplayFor(modelItem => item.Notes)
+                            </td>
+
+                            <td>
+                            @if (item.IsDeposit)
+                                {
+                                    <span class="badge bg-info">
+                                        <i class="fas fa-shield-alt me-1"></i>Deposit
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-light text-dark">
+                                        <i class="fas fa-money-bill me-1"></i>Payment
+                                    </span>
+                                }
+                            </td>
+                            <td class="amount-cell">
+                                @Html.DisplayFor(modelItem => item.DepositReturnAmount)
+                            </td>
+
+
+                            <td>
+                                @if (item.Booking != null)
+                                {
+                                    <a asp-page="/BookingCuongClas/Details" asp-route-id="@item.Booking.BookingCuongClaid" 
+                                       class="badge bg-primary text-decoration-none" 
+                                       title="View booking details">
+                                        @Html.DisplayFor(modelItem => item.Booking.Customer.FullName) / @item.Booking.BookingCuongClaid
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (item.ProcessedByNavigation != null)
+                                {
+                                    <small class="text-muted">
+                                        <i class="fas fa-envelope me-1"></i>
+                                        @Html.DisplayFor(modelItem => item.ProcessedByNavigation.Email)
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap">
+                                    <a asp-page="./Edit" asp-route-id="@item.PaymentCuongClaid" class="btn-action btn-edit" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-page="./Details" asp-route-id="@item.PaymentCuongClaid" class="btn-action btn-view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a asp-page="./Delete" asp-route-id="@item.PaymentCuongClaid" class="btn-action btn-delete" title="Delete"
+                                       onclick="return confirm('Are you sure you want to delete this payment record?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome (if not already included) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+
+@section Scripts {
+    <script>
+        // Get the value from ViewData and print it to the browser console
+        var vehicleCount = @Json.Serialize(ViewData["VehicleCount"]);
+        console.log("VehicleManagementPhatNt count: " + vehicleCount);
+    </script>
+}

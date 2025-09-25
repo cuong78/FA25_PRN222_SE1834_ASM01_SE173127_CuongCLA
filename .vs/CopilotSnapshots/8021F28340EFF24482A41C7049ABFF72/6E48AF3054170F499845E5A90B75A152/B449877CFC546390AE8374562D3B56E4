@@ -1,0 +1,75 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas
+{
+    [Authorize(Roles = "1,2")]
+    public class IndexModel : PageModel
+    {
+        // private readonly zEVRental.Repositories.CuongCLA.Models.FA25_PRN222_SE1834_G3_EVRentalContext _context;
+        private readonly IPaymentCuongClaService _service;
+        public IndexModel(IPaymentCuongClaService service)
+        {
+            _service = service;
+        }
+
+        public IList<PaymentCuongCla> PaymentCuongCla { get; set; } = default!;
+
+        // Search and Filter Properties
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; } = string.Empty;
+
+        [BindProperty(SupportsGet = true)]
+        public string StatusFilter { get; set; } = string.Empty;
+
+        [BindProperty(SupportsGet = true)]
+        public string MethodFilter { get; set; } = string.Empty;
+
+        public async Task OnGetAsync()
+        {
+            // Get all payments first
+            var allPayments = await _service.GetAllAsync();
+
+            // Apply filters
+            var filteredPayments = allPayments.AsQueryable();
+
+            // Search filter - search by deposit return amount, notes, or customer name
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                filteredPayments = filteredPayments.Where(p => 
+                    (p.DepositReturnAmount.HasValue && p.DepositReturnAmount.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(p.Notes) && p.Notes.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                    (p.Booking != null && p.Booking.Customer != null && 
+                     p.Booking.Customer.FullName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                );
+            }
+
+            // Status filter
+            if (!string.IsNullOrWhiteSpace(StatusFilter))
+            {
+                filteredPayments = filteredPayments.Where(p => p.PaymentStatus == StatusFilter);
+            }
+
+            // Payment method filter
+            if (!string.IsNullOrWhiteSpace(MethodFilter))
+            {
+                filteredPayments = filteredPayments.Where(p => p.PaymentMethod == MethodFilter);
+            }
+
+            PaymentCuongCla = filteredPayments.ToList();
+
+            //PaymentCuongCla = await _context.PaymentCuongClas
+            //    .Include(p => p.Booking)
+            //    .Include(p => p.Customer)
+            //    .Include(p => p.ProcessedByNavigation).ToListAsync();
+        }
+    }
+}

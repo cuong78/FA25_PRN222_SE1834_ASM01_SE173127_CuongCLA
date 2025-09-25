@@ -1,0 +1,92 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas
+{
+    [Authorize(Roles = "1,2")]
+    public class IndexModel : PageModel
+    {
+        private readonly IPaymentCuongClaService _service;
+        
+        public IndexModel(IPaymentCuongClaService service)
+        {
+            _service = service;
+        }
+
+        public IList<PaymentCuongCla> PaymentCuongCla { get; set; } = default!;
+        public IList<PaymentCuongCla> FilteredPayments { get; set; } = default!;
+        
+        // Search parameters
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; } = string.Empty;
+        
+        [BindProperty(SupportsGet = true)]
+        public string PaymentMethod { get; set; } = string.Empty;
+        
+        [BindProperty(SupportsGet = true)]
+        public decimal DepositReturnAmount { get; set; } = 0;
+        
+        [BindProperty(SupportsGet = true)]
+        public string PaymentStatus { get; set; } = string.Empty;
+        
+        // Pagination parameters
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+        
+        public int PageSize { get; set; } = 10;
+        public int TotalPages { get; set; }
+        public int TotalRecords { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            // If any search parameters are provided, use search; otherwise get all
+            if (!string.IsNullOrEmpty(PaymentMethod) || DepositReturnAmount > 0 || !string.IsNullOrEmpty(PaymentStatus))
+            {
+                PaymentCuongCla = await _service.SearchAsync(PaymentMethod, DepositReturnAmount, PaymentStatus);
+            }
+            else
+            {
+                PaymentCuongCla = await _service.GetAllAsync();
+            }
+
+            // Apply client-side search term filter if provided
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                PaymentCuongCla = PaymentCuongCla.Where(p => 
+                    (p.DepositReturnAmount?.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (p.PaymentMethod?.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (p.PaymentStatus?.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (p.Notes?.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (p.Booking?.Customer?.FullName?.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ?? false)
+                ).ToList();
+            }
+
+            // Calculate pagination
+            TotalRecords = PaymentCuongCla.Count();
+            TotalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
+            
+            // Ensure current page is valid
+            if (CurrentPage < 1) CurrentPage = 1;
+            if (CurrentPage > TotalPages && TotalPages > 0) CurrentPage = TotalPages;
+
+            // Apply pagination
+            FilteredPayments = PaymentCuongCla
+                .Skip((CurrentPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+        }
+
+        public async Task<IActionResult> OnGetSearchAsync()
+        {
+            return await Task.FromResult(Page());
+        }
+    }
+}

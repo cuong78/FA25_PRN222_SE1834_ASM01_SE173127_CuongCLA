@@ -1,0 +1,120 @@
+﻿@page
+@model zEVRental.RazorWebApp.CuongCLA.Pages.BookingCuongClas.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].PlannedPickUpDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].PlannedReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].ActualPickUpDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].ActualReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].TotalCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].DepositAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].IsDepositPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].CreatedByNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].Station)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingCuongCla[0].Vehicle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.BookingCuongCla) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlannedPickUpDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlannedReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualPickUpDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepositAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDepositPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedByNavigation.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.ActionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Station.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.LicensePlate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.BookingCuongClaid">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.BookingCuongClaid">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.BookingCuongClaid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

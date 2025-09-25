@@ -1,0 +1,62 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas
+{
+    [Authorize(Roles = "1,2")]
+    public class IndexModel : PageModel
+    {
+        private readonly IPaymentCuongClaService _service;
+        
+        public IndexModel(IPaymentCuongClaService service)
+        {
+            _service = service;
+        }
+
+        public IList<PaymentCuongCla> PaymentCuongCla { get; set; } = default!;
+
+        [BindProperty(SupportsGet = true)]
+        public string? SearchDepositAmount { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? PaymentStatus { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? PaymentMethod { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            // Check if any search parameters are provided
+            if (!string.IsNullOrEmpty(SearchDepositAmount) || 
+                !string.IsNullOrEmpty(PaymentStatus) || 
+                !string.IsNullOrEmpty(PaymentMethod))
+            {
+                // Parse deposit amount, default to 0 if invalid
+                decimal depositAmount = 0;
+                if (!string.IsNullOrEmpty(SearchDepositAmount))
+                {
+                    decimal.TryParse(SearchDepositAmount, out depositAmount);
+                }
+
+                // Use search functionality
+                PaymentCuongCla = await _service.SearchAsync(
+                    PaymentMethod ?? string.Empty, 
+                    depositAmount, 
+                    PaymentStatus ?? string.Empty);
+            }
+            else
+            {
+                // Get all payments when no search parameters
+                PaymentCuongCla = await _service.GetAllAsync();
+            }
+        }
+    }
+}

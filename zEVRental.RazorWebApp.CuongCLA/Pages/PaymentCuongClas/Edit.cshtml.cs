@@ -1,0 +1,95 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas
+{
+    [Authorize(Roles = "1,2")]
+    public class EditModel : PageModel
+    {
+
+        private readonly IPaymentCuongClaService _paymentCuongClaService;
+        private readonly BookingCuongClaService _bookingCuongClaService;
+        private readonly SystemUserAccountService _systemUserAccountService;
+
+        public EditModel(IPaymentCuongClaService paymentCuongClaService
+            , BookingCuongClaService bookingCuongClaService
+            , SystemUserAccountService systemUserAccountService)
+        {
+            _paymentCuongClaService = paymentCuongClaService;
+            _bookingCuongClaService = bookingCuongClaService;
+            _systemUserAccountService = systemUserAccountService;
+        }
+
+
+        [BindProperty]
+        public PaymentCuongCla PaymentCuongCla { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var paymentcuongcla =  await _paymentCuongClaService.GetByIdAsync(id.Value);
+            if (paymentcuongcla == null)
+            {
+                return NotFound();
+            }
+            PaymentCuongCla = paymentcuongcla;
+
+
+            var systemUserAccounts = await _systemUserAccountService.GetAllAsync();
+
+            var BookingCuongClaQueryable = (await _bookingCuongClaService.GetAllAsync()).AsQueryable();
+            var BookingCuongClas = BookingCuongClaQueryable.Select(b => new
+            {
+                b.BookingCuongClaid,
+                DisplayText = string.Format("{0} - {1} - {2}", b.BookingCuongClaid, b.Customer.FullName, b.Status)
+            }).ToList();
+
+            ViewData["BookingId"] = new SelectList(BookingCuongClas, "BookingCuongClaid", "DisplayText", PaymentCuongCla.BookingId);
+            ViewData["ProcessedBy"] = new SelectList(systemUserAccounts, "UserAccountId", "Email", PaymentCuongCla.ProcessedBy);
+
+
+            return Page();
+        }
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            try
+            {
+                PaymentCuongCla.PaymentDate = DateTime.Now;
+
+                await _paymentCuongClaService.UpdateAsync(PaymentCuongCla);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        //private bool PaymentCuongClaExists(int id)
+        //{
+        //    return _context.PaymentCuongClas.Any(e => e.PaymentCuongClaid == id);
+        //}
+    }
+}

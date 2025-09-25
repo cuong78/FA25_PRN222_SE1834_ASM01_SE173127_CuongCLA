@@ -1,0 +1,98 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "FA25_PRN222_SE1834_G3_EVRentalContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "MinimumProductVersion": "2.6.1166",
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "zEVRental.Repositories.CuongCLA",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[BookingCuongCLA]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CustomerManagementConglt]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PaymentCuongCLA]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PricingPhatNT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RentalTransactionsKhanhLQ]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[StationHuyND]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[StationOperationsHuyND]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[System.UserAccount]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TransactionChecklistResultsKhanhLQ]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VehicleHaLTH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VehicleMaintenanceHistoryHaLTH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VehicleManagementPhatNT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ViolationRecordConglt]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

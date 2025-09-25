@@ -1,0 +1,14 @@
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.deps.json
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.runtimeconfig.json
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\bin\Debug\net8.0\zEVRental.Repositories.CuongCLA.pdb
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.csproj.AssemblyReference.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.AssemblyInfoInputs.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.AssemblyInfo.cs
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.csproj.CoreCompileInputs.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\refint\zEVRental.Repositories.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.pdb
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.genruntimeconfig.cache
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\ref\zEVRental.Repositories.CuongCLA.dll
