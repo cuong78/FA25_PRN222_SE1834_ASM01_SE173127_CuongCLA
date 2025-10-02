@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using zEVRental.RazorWebApp.CuongCLA.hubs;
 using zEVRental.Services.CuongCLA;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
     });
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,5 +39,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages().RequireAuthorization();
+
+app.MapHub<zPaymentCuongclaHub>("/zPaymentCuongclaHub");
 
 app.Run();

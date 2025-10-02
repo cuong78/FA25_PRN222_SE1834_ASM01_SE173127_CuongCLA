@@ -12,3 +12,4 @@ D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.Cuon
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.pdb
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.genruntimeconfig.cache
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\ref\zEVRental.Repositories.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Repositories.CuongCLA\obj\Debug\net8.0\zEVRental.Repositories.CuongCLA.sourcelink.json

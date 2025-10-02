@@ -13,3 +13,4 @@ D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\refint\zEVRental.Services.CuongCLA.dll
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.pdb
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\ref\zEVRental.Services.CuongCLA.dll
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.Services.CuongCLA\obj\Debug\net8.0\zEVRental.Services.CuongCLA.sourcelink.json
