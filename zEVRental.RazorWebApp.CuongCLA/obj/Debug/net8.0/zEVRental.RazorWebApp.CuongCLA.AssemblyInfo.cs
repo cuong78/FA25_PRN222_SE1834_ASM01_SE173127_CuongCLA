@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("zEVRental.RazorWebApp.CuongCLA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+671b5499d0c1075fdd463c7895b6531b1d5ef2d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a6f086ee76a697d3e553f215f0c69b0b892f5a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("zEVRental.RazorWebApp.CuongCLA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("zEVRental.RazorWebApp.CuongCLA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

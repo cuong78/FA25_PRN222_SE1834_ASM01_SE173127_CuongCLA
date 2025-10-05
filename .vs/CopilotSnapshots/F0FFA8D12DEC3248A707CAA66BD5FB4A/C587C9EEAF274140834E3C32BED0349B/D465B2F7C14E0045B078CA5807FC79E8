@@ -1,0 +1,66 @@
+﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+using zEVRental.RazorWebApp.CuongCLA.Models;
+
+namespace zEVRental.RazorWebApp.CuongCLA.hubs
+{
+    public class zPaymentCuongclaHub : Microsoft.AspNetCore.SignalR.Hub
+    {
+        private readonly IPaymentCuongClaService _service;
+
+        public zPaymentCuongclaHub(IPaymentCuongClaService service)
+        {
+            _service = service;
+        }
+
+        public async Task HubDelete_PaymentCuongcla(string paymentId)
+        {
+            await Clients.All.SendAsync("Receive_DeletePaymentCuongcla", paymentId);
+
+            await _service.DeleteAsync(int.Parse(paymentId));
+        }
+
+        public async Task HubCreate_PaymentCuongcla(string paymentCuongclaJsonString)
+        {
+            // Cách 1: Sử dụng wrapper class (recommended)
+            var request = JsonConvert.DeserializeObject<PaymentCreateRequest>(paymentCuongclaJsonString);
+          
+            // Set up relationships if needed
+            if (request.ProcessedByUser != null)
+            {
+                request.Payment.ProcessedBy = request.ProcessedByUser.UserAccountId;
+                request.Payment.ProcessedByNavigation = request.ProcessedByUser;
+            }
+            
+            if (request.Booking != null)
+            {
+                request.Payment.BookingId = request.Booking.BookingCuongClaid;
+                request.Payment.Booking = request.Booking;
+            }
+            
+            await Clients.All.SendAsync("Receive_CreatePaymentCuongcla", request.Payment);
+           
+            await _service.CreateAsync(request.Payment);
+            
+            /* 
+            // Cách 2: Sử dụng dynamic (alternative approach)
+            dynamic data = JsonConvert.DeserializeObject(paymentCuongclaJsonString);
+            
+            var payment = JsonConvert.DeserializeObject<PaymentCuongCla>(data.payment.ToString());
+            var user = JsonConvert.DeserializeObject<SystemUserAccount>(data.user.ToString());
+            var booking = JsonConvert.DeserializeObject<BookingCuongCla>(data.booking.ToString());
+            
+            // Set up relationships
+            payment.ProcessedBy = user?.UserAccountId;
+            payment.ProcessedByNavigation = user;
+            payment.BookingId = booking?.BookingCuongClaid ?? 0;
+            payment.Booking = booking;
+            
+            await Clients.All.SendAsync("Receive_CreatePaymentCuongcla", payment);
+            await _service.CreateAsync(payment);
+            */
+        }
+    }
+}

@@ -1,0 +1,5 @@
+﻿@page "/api/booking/{id:int}"
+@model zEVRental.RazorWebApp.CuongCLA.Pages.Api.BookingApiModel
+@{
+    Layout = null;
+}

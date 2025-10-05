@@ -1,0 +1,71 @@
+﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.hubs
+{
+    public class zPaymentCuongclaHub : Microsoft.AspNetCore.SignalR.Hub
+    {
+        private readonly IPaymentCuongClaService _service;
+        private readonly BookingCuongClaService _bookingService;
+        private readonly SystemUserAccountService _userAccountService;
+
+        public zPaymentCuongclaHub(IPaymentCuongClaService service, 
+            BookingCuongClaService bookingService,
+            SystemUserAccountService userAccountService)
+        {
+            _service = service;
+            _bookingService = bookingService;
+            _userAccountService = userAccountService;
+        }
+
+        public async Task HubDelete_PaymentCuongcla(string paymentId)
+        {
+            await Clients.All.SendAsync("Receive_DeletePaymentCuongcla", paymentId);
+
+            await _service.DeleteAsync(int.Parse(paymentId));
+        }
+
+        public async Task HubCreate_PaymentCuongcla(string paymentRequestJsonString)
+        {
+            var paymentData = JsonConvert.DeserializeObject<PaymentCuongCla>(paymentRequestJsonString);
+                    
+            await Clients.All.SendAsync("Receive_CreatePaymentCuongcla", paymentData);
+           
+            await _service.CreateAsync(paymentData);
+        }
+
+        public async Task HubUpdate_PaymentCuongcla(string paymentRequestJsonString)
+        {
+            var paymentData = JsonConvert.DeserializeObject<PaymentCuongCla>(paymentRequestJsonString);
+            
+            await _service.UpdateAsync(paymentData);
+            
+            // Broadcast the updated payment to all clients
+            await Clients.All.SendAsync("Receive_UpdatePaymentCuongcla", paymentData);
+        }
+
+        public async Task HubViewDetail_PaymentCuongcla(string paymentId)
+        {
+            var payment = await _service.GetByIdAsync(int.Parse(paymentId));
+            
+            if (payment != null)
+            {
+                // Broadcast that someone is viewing this payment detail
+                await Clients.Others.SendAsync("Receive_ViewDetailPaymentCuongcla", paymentId, payment);
+            }
+        }
+
+        public async Task HubRefreshDetail_PaymentCuongcla(string paymentId)
+        {
+            var payment = await _service.GetByIdAsync(int.Parse(paymentId));
+            
+            if (payment != null)
+            {
+                // Broadcast updated payment details to all clients viewing this payment
+                await Clients.All.SendAsync("Receive_RefreshDetailPaymentCuongcla", paymentId, payment);
+            }
+        }
+    }
+}

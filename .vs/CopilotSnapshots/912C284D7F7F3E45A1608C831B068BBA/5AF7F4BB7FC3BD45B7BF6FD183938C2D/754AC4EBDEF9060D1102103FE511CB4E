@@ -1,0 +1,41 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.Api
+{
+    public class UserApiModel : PageModel
+    {
+        private readonly SystemUserAccountService _userService;
+
+        public UserApiModel(SystemUserAccountService userService)
+        {
+            _userService = userService;
+        }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            try
+            {
+                var user = await _userService.GetByIdAsync(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var result = new
+                {
+                    userAccountId = user.UserAccountId,
+                    email = user.Email ?? "",
+                    fullName = user.FullName ?? ""
+                };
+
+                return new JsonResult(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+    }
+}

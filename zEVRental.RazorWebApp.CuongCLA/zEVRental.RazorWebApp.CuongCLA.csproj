@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Pages\Account\.vs\Account\FileContentIndex\" />
+    <Folder Include="Pages\Api\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,43 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using zEVRental.Services.CuongCLA;
+
+namespace zEVRental.RazorWebApp.CuongCLA.Pages.Api
+{
+    public class BookingApiModel : PageModel
+    {
+        private readonly BookingCuongClaService _bookingService;
+
+        public BookingApiModel(BookingCuongClaService bookingService)
+        {
+            _bookingService = bookingService;
+        }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            try
+            {
+                var booking = await _bookingService.GetByIdAsync(id);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
+
+                var result = new
+                {
+                    bookingCuongClaid = booking.BookingCuongClaid,
+                    customer = new
+                    {
+                        fullName = booking.Customer?.FullName ?? ""
+                    }
+                };
+
+                return new JsonResult(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+    }
+}

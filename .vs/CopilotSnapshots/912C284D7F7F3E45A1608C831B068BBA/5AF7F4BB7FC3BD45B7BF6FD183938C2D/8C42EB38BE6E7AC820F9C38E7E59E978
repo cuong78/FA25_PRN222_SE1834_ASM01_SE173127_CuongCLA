@@ -1,0 +1,5 @@
+﻿@page "/api/user/{id:int}"
+@model zEVRental.RazorWebApp.CuongCLA.Pages.Api.UserApiModel
+@{
+    Layout = null;
+}

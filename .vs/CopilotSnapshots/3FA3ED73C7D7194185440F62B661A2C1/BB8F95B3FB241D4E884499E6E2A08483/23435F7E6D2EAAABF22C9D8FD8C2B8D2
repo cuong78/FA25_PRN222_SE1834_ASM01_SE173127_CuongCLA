@@ -1,0 +1,54 @@
+﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using zEVRental.Repositories.CuongCLA.Models;
+using zEVRental.Services.CuongCLA;
+using zEVRental.RazorWebApp.CuongCLA.Models;
+
+namespace zEVRental.RazorWebApp.CuongCLA.hubs
+{
+    public class zPaymentCuongclaHub : Microsoft.AspNetCore.SignalR.Hub
+    {
+        private readonly IPaymentCuongClaService _service;
+        private readonly BookingCuongClaService _bookingService;
+        private readonly SystemUserAccountService _userAccountService;
+
+        public zPaymentCuongclaHub(IPaymentCuongClaService service, 
+            BookingCuongClaService bookingService,
+            SystemUserAccountService userAccountService)
+        {
+            _service = service;
+            _bookingService = bookingService;
+            _userAccountService = userAccountService;
+        }
+
+        public async Task HubDelete_PaymentCuongcla(string paymentId)
+        {
+            await Clients.All.SendAsync("Receive_DeletePaymentCuongcla", paymentId);
+
+            await _service.DeleteAsync(int.Parse(paymentId));
+        }
+
+        public async Task HubCreate_PaymentCuongcla(string paymentRequestJsonString)
+        {
+            var paymentData = JsonConvert.DeserializeObject<PaymentCuongCla>(paymentRequestJsonString);
+            
+            // Lấy thông tin chi tiết Booking và ProcessedBy
+            var booking = await _bookingService.GetByIdAsync(paymentData.BookingId);
+            var processedByUser = paymentData.ProcessedBy.HasValue 
+                ? await _userAccountService.GetByIdAsync(paymentData.ProcessedBy.Value) 
+                : null;
+            
+            // Tạo PaymentCreateRequest với đầy đủ thông tin
+            var request = new PaymentCreateRequest
+            {
+                Payment = paymentData,
+                Booking = booking,
+                ProcessedByUser = processedByUser
+            };
+                    
+            await Clients.All.SendAsync("Receive_CreatePaymentCuongcla", request);
+           
+            await _service.CreateAsync(paymentData);
+        }
+    }
+}

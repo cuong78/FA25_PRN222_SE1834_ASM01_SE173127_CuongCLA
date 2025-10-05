@@ -1,0 +1,790 @@
+﻿@page
+@model zEVRental.RazorWebApp.CuongCLA.Pages.PaymentCuongClas.DetailsModel
+
+@{
+    ViewData["Title"] = "Payment Details";
+}
+
+<!-- Custom CSS -->
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        padding: 2.5rem 0;
+        margin-bottom: 3rem;
+        border-radius: 0 0 2rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><path d="M0,0v46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1047.81,18.38,1000,0V0Z"/></svg>') center/cover;
+        }
+
+    .details-container {
+        background: white;
+        border-radius: 1.5rem;
+        box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .details-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+        border-bottom: 1px solid #dee2e6;
+        position: relative;
+    }
+
+        .details-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 2px;
+        }
+
+    .details-body {
+        padding: 2.5rem;
+    }
+
+    .details-section {
+        margin-bottom: 2.5rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 1rem;
+        border-left: 4px solid #4facfe;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: #4facfe;
+        }
+
+    .detail-row {
+        display: flex;
+        margin-bottom: 1rem;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+    }
+
+        .detail-label i {
+            margin-right: 0.5rem;
+            color: #6c757d;
+            width: 16px;
+        }
+
+    .detail-value {
+        color: #212529;
+        flex: 1;
+        font-weight: 500;
+    }
+
+    .payment-id {
+        background: #e9ecef;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        font-family: 'Courier New', monospace;
+        font-weight: 600;
+        color: #495057;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .status-completed {
+        background: #d1ecf1;
+        color: #0c5460;
+    }
+
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-failed {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    .status-cancelled {
+        background: #d6d8db;
+        color: #383d41;
+    }
+
+    .status-refunded {
+        background: #cce7ff;
+        color: #004085;
+    }
+
+    .amount-display {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #28a745;
+    }
+
+    .deposit-indicator {
+        background: #fff3cd;
+        color: #856404;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-left: 0.5rem;
+    }
+
+    .booking-info {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .user-info {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+    }
+
+        .user-info i {
+            margin-right: 0.5rem;
+            color: #4facfe;
+        }
+
+    .btn-action {
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        margin-right: 1rem;
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        color: white;
+        box-shadow: 0 0.25rem 0.75rem rgba(255, 107, 107, 0.3);
+    }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1.5rem rgba(255, 107, 107, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+    }
+
+        .btn-back:hover {
+            background: #5a6268;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .btn-refresh {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        margin-left: 0.5rem;
+    }
+
+        .btn-refresh:hover {
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .details-footer {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .breadcrumb {
+        background: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb-item a {
+        color: white;
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+        .breadcrumb-item a:hover {
+            opacity: 1;
+        }
+
+    .breadcrumb-item.active {
+        color: white;
+        opacity: 1;
+    }
+
+    @@media (max-width: 768px) {
+        .details-body {
+            padding: 1.5rem;
+        }
+
+        .details-section {
+            padding: 1rem;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .detail-label {
+            min-width: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        .details-footer {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    /* SignalR Real-time indicators */
+    .real-time-indicator {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+
+    .update-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.3);
+        z-index: 1000;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        max-width: 350px;
+    }
+
+        .update-notification.show {
+            transform: translateX(0);
+        }
+
+        .update-notification .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            float: right;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+    .viewing-indicator {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: #212529;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        display: none;
+    }
+
+        .viewing-indicator.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .updated-field {
+        background-color: #fff3cd !important;
+        border: 2px solid #ffc107 !important;
+        animation: highlightUpdate 2s ease;
+    }
+
+    @@keyframes highlightUpdate {
+        0% { background-color: #d4edda; border-color: #28a745; }
+        100% { background-color: #fff3cd; border-color: #ffc107; }
+    }
+</style>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a asp-page="Index"><i class="fas fa-home me-1"></i>Payment Management</a>
+                        </li>
+                        <li class="breadcrumb-item active">Payment Details</li>
+                    </ol>
+                </nav>
+                <h1 class="mb-0">
+                    <i class="fas fa-file-invoice-dollar me-3"></i>
+                    Payment Details
+                </h1>
+                <p class="mb-0 mt-2 opacity-75">View detailed payment information and transaction records</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="d-flex align-items-center justify-content-md-end">
+                    <i class="fas fa-receipt fa-3x opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+            <div class="details-container">
+                <div class="real-time-indicator">
+                    <i class="fas fa-wifi me-2"></i>
+                    Real-time
+                </div>
+
+                <div class="details-header text-center">
+                    <h3 class="mb-2">Payment Record</h3>
+                    <p class="text-muted mb-2">Complete transaction details and information</p>
+                    <div class="payment-id">
+                        <i class="fas fa-hashtag me-2"></i>
+                        Payment ID: @Model.PaymentCuongCla.PaymentCuongClaid
+                    </div>
+                </div>
+
+                <!-- Viewing Indicator -->
+                <div id="viewingIndicator" class="viewing-indicator">
+                    <i class="fas fa-eye me-2"></i>
+                    <span id="viewingMessage">Someone else is viewing this payment</span>
+                </div>
+
+                <div class="details-body" id="paymentId">
+                    <!-- Booking Information Section -->
+                    <div class="details-section">
+                        <h5 class="section-title">
+                            <i class="fas fa-bookmark"></i>
+                            Booking Information
+                        </h5>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-ticket-alt"></i>
+                                Booking Reference
+                            </div>
+                            <div class="detail-value" data-field="booking">
+                                @if (Model.PaymentCuongCla.Booking != null)
+                                {
+                                    <div class="booking-info">
+                                        <strong>Booking ID:</strong> @Model.PaymentCuongCla.Booking.BookingCuongClaid<br>
+                                        @if (Model.PaymentCuongCla.Booking.Customer != null)
+                                        {
+                                            <strong>Customer:</strong> @Model.PaymentCuongCla.Booking.Customer.FullName<br>
+                                        }
+                                        <strong>Status:</strong> 
+                                        <span class="status-badge @(Model.PaymentCuongCla.Booking.Status?.ToLower() == "completed" ? "status-completed" : 
+                                                                   Model.PaymentCuongCla.Booking.Status?.ToLower() == "pending" ? "status-pending" : 
+                                                                   Model.PaymentCuongCla.Booking.Status?.ToLower() == "cancelled" ? "status-cancelled" : "status-pending")">
+                                            @Model.PaymentCuongCla.Booking.Status
+                                        </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No booking information available</span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-user-cog"></i>
+                                Processed By
+                            </div>
+                            <div class="detail-value" data-field="processedBy">
+                                @if (Model.PaymentCuongCla.ProcessedByNavigation != null)
+                                {
+                                    <div class="user-info">
+                                        <i class="fas fa-user-circle"></i>
+                                        <div>
+                                            <strong>@Model.PaymentCuongCla.ProcessedByNavigation.Email</strong>
+                                            @if (!string.IsNullOrEmpty(Model.PaymentCuongCla.ProcessedByNavigation.FullName))
+                                            {
+                                                <br><small class="text-muted">@Model.PaymentCuongCla.ProcessedByNavigation.FullName</small>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No processor information available</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details Section -->
+                    <div class="details-section">
+                        <h5 class="section-title">
+                            <i class="fas fa-credit-card"></i>
+                            Payment Details
+                        </h5>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Payment Date
+                            </div>
+                            <div class="detail-value" data-field="paymentDate">
+                                @Model.PaymentCuongCla.PaymentDate.ToString("dddd, MMMM dd, yyyy 'at' h:mm tt")
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-dollar-sign"></i>
+                                Amount
+                            </div>
+                            <div class="detail-value" data-field="amount">
+                                <span class="amount-display">$@Model.PaymentCuongCla.Amount.ToString("N2")</span>
+                                @if (Model.PaymentCuongCla.IsDeposit)
+                                {
+                                    <span class="deposit-indicator">Deposit</span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-credit-card"></i>
+                                Payment Method
+                            </div>
+                            <div class="detail-value" data-field="paymentMethod">
+                                @Model.PaymentCuongCla.PaymentMethod
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-check-circle"></i>
+                                Payment Status
+                            </div>
+                            <div class="detail-value" data-field="paymentStatus">
+                                <span class="status-badge @(Model.PaymentCuongCla.PaymentStatus?.ToLower() == "completed" ? "status-completed" : 
+                                                           Model.PaymentCuongCla.PaymentStatus?.ToLower() == "pending" ? "status-pending" : 
+                                                           Model.PaymentCuongCla.PaymentStatus?.ToLower() == "failed" ? "status-failed" : 
+                                                           Model.PaymentCuongCla.PaymentStatus?.ToLower() == "cancelled" ? "status-cancelled" : 
+                                                           Model.PaymentCuongCla.PaymentStatus?.ToLower() == "refunded" ? "status-refunded" : "status-pending")">
+                                    @Model.PaymentCuongCla.PaymentStatus
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-shield-alt"></i>
+                                Deposit Payment
+                            </div>
+                            <div class="detail-value" data-field="isDeposit">
+                                @(Model.PaymentCuongCla.IsDeposit ? "Yes" : "No")
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information Section -->
+                    @if (Model.PaymentCuongCla.DepositReturnAmount.HasValue || !string.IsNullOrEmpty(Model.PaymentCuongCla.Notes))
+                    {
+                        <div class="details-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-info-circle"></i>
+                                Additional Information
+                            </h5>
+
+                            @if (Model.PaymentCuongCla.DepositReturnAmount.HasValue)
+                            {
+                                <div class="detail-row">
+                                    <div class="detail-label">
+                                        <i class="fas fa-undo"></i>
+                                        Deposit Return Amount
+                                    </div>
+                                    <div class="detail-value" data-field="depositReturnAmount">
+                                        <span class="amount-display">$@Model.PaymentCuongCla.DepositReturnAmount.Value.ToString("N2")</span>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.PaymentCuongCla.Notes))
+                            {
+                                <div class="detail-row">
+                                    <div class="detail-label">
+                                        <i class="fas fa-sticky-note"></i>
+                                        Notes
+                                    </div>
+                                    <div class="detail-value" data-field="notes">
+                                        @Model.PaymentCuongCla.Notes
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="details-footer">
+                    <div>
+                        <a asp-page="./Index" class="btn-action btn-back">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to List
+                        </a>
+                        <button type="button" id="btnRefreshDetail" class="btn-action btn-refresh">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            Refresh Details
+                        </button>
+                    </div>
+                    <div>
+                        <a asp-page="./Edit" asp-route-id="@Model.PaymentCuongCla.PaymentCuongClaid" class="btn-action btn-edit">
+                            <i class="fas fa-edit me-2"></i>
+                            Edit Payment
+                        </a>
+                        <input type="button" id="btnHubViewDetail" value="View Detail by SignalRHub" class="btn btn-info ms-2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Notification -->
+<div id="updateNotification" class="update-notification">
+    <button type="button" class="close-btn" onclick="hideUpdateNotification()">&times;</button>
+    <strong><i class="fas fa-info-circle me-2"></i>Payment Updated!</strong>
+    <div id="updateMessage">This payment record has been updated.</div>
+</div>
+
+<!-- Font Awesome (if not already included) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- JavaScript for Real-time functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update notification functions
+        window.showUpdateNotification = function(message) {
+            const notification = document.getElementById('updateNotification');
+            const messageDiv = document.getElementById('updateMessage');
+            messageDiv.textContent = message || 'This payment record has been updated.';
+            notification.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hideUpdateNotification();
+            }, 5000);
+        };
+
+        window.hideUpdateNotification = function() {
+            const notification = document.getElementById('updateNotification');
+            notification.classList.remove('show');
+        };
+
+        // Show viewing indicator
+        window.showViewingIndicator = function(message) {
+            const indicator = document.getElementById('viewingIndicator');
+            const messageSpan = document.getElementById('viewingMessage');
+            messageSpan.textContent = message || 'Someone else is viewing this payment';
+            indicator.classList.add('show');
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                hideViewingIndicator();
+            }, 10000);
+        };
+
+        window.hideViewingIndicator = function() {
+            const indicator = document.getElementById('viewingIndicator');
+            indicator.classList.remove('show');
+        };
+
+        // Highlight updated fields
+        window.highlightUpdatedField = function(fieldName) {
+            const field = document.querySelector(`[data-field="${fieldName}"]`);
+            if (field) {
+                field.classList.add('updated-field');
+                setTimeout(() => {
+                    field.classList.remove('updated-field');
+                }, 3000);
+            }
+        };
+    });
+</script>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/zPaymentCuongclaHub").build();
+    var currentPaymentId = '@Model.PaymentCuongCla.PaymentCuongClaid';
+
+    connection.start().then(function () {
+        console.log("CuongCLA: Connected to the SignalR Hub for Details page");
+        
+        // Notify other users that someone is viewing this payment
+        connection.invoke("HubViewDetail_PaymentCuongcla", currentPaymentId).catch(function (err) {
+            console.error("Error notifying view detail:", err.toString());
+        });
+        
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    // Listen for delete notifications
+    connection.on("Receive_DeletePaymentCuongcla", function (PaymentCuongClaid) {
+        if (PaymentCuongClaid == currentPaymentId) {
+            document.getElementById("paymentId").innerHTML = 
+                "<div class='alert alert-warning text-center' role='alert'>" +
+                "<i class='fas fa-exclamation-triangle me-2'></i>" +
+                "This payment record (ID: " + PaymentCuongClaid + ") has been deleted." +
+                "</div>";
+        }
+    });
+
+    // Listen for update notifications
+    connection.on("Receive_UpdatePaymentCuongcla", function (paymentData) {
+        if (paymentData.paymentCuongClaid == currentPaymentId) {
+            showUpdateNotification("This payment record has been updated by another user.");
+            
+            // Optionally refresh the page to show updated data
+            setTimeout(() => {
+                if (confirm("This payment has been updated. Would you like to refresh to see the latest changes?")) {
+                    window.location.reload();
+                }
+            }, 2000);
+        }
+    });
+
+    // Listen for detail refresh notifications
+    connection.on("Receive_RefreshDetailPaymentCuongcla", function (paymentId, paymentData) {
+        if (paymentId == currentPaymentId) {
+            showUpdateNotification("Payment details have been refreshed with the latest information.");
+            
+            // Update specific fields if needed
+            // This is a simplified example - you could update specific DOM elements here
+            highlightUpdatedField('amount');
+            highlightUpdatedField('paymentStatus');
+        }
+    });
+
+    // Listen for view detail notifications
+    connection.on("Receive_ViewDetailPaymentCuongcla", function (paymentId, paymentData) {
+        if (paymentId == currentPaymentId) {
+            showViewingIndicator("Another user is currently viewing this payment record");
+        }
+    });
+
+    // Handle View Detail button click
+    document.getElementById("btnHubViewDetail").addEventListener("click", function (event) {
+        connection.invoke("HubViewDetail_PaymentCuongcla", currentPaymentId).then(function() {
+            showUpdateNotification("Detail view broadcast to other users!");
+        }).catch(function (err) {
+            console.error("Error broadcasting view detail:", err.toString());
+        });
+
+        event.preventDefault();
+    });
+
+    // Handle Refresh Detail button click
+    document.getElementById("btnRefreshDetail").addEventListener("click", function (event) {
+        connection.invoke("HubRefreshDetail_PaymentCuongcla", currentPaymentId).then(function() {
+            showUpdateNotification("Detail refresh broadcast to all users!");
+            // Optionally reload the page to get fresh data
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }).catch(function (err) {
+            console.error("Error broadcasting refresh detail:", err.toString());
+        });
+
+        event.preventDefault();
+    });
+
+    // Notify when user leaves the page
+    window.addEventListener('beforeunload', function() {
+        // Could implement a "stopped viewing" notification here if needed
+    });
+</script>

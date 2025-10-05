@@ -256,7 +256,6 @@ D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.Cuong
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\staticwebassets.development.json
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\zEVRenta.7ECEB761.Up2Date
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\zEVRental.RazorWebApp.CuongCLA.dll
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\refint\zEVRental.RazorWebApp.CuongCLA.dll
@@ -264,3 +263,4 @@ D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.Cuong
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\zEVRental.RazorWebApp.CuongCLA.genruntimeconfig.cache
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\ref\zEVRental.RazorWebApp.CuongCLA.dll
 D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\zEVRental.RazorWebApp.CuongCLA.sourcelink.json
+D:\PRN222\FA25_PRN222_SE1834_ASM01_SE173127_CuongCLA\zEVRental.RazorWebApp.CuongCLA\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
