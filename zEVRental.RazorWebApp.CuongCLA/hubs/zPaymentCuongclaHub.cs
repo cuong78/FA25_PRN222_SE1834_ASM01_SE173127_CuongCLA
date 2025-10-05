@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using zEVRental.Repositories.CuongCLA.Models;
 using zEVRental.Services.CuongCLA;
 
 namespace zEVRental.RazorWebApp.CuongCLA.hubs
@@ -17,6 +19,15 @@ namespace zEVRental.RazorWebApp.CuongCLA.hubs
             await Clients.All.SendAsync("Receive_DeletePaymentCuongcla", paymentId);
 
             await _service.DeleteAsync(int.Parse(paymentId));
+        }
+
+        public async Task HubCreate_PaymentCuongcla(string paymentCuongclaJsonString)
+        {
+            var item = JsonConvert.DeserializeObject<PaymentCuongCla>(paymentCuongclaJsonString);
+          
+            await Clients.All.SendAsync("Receive_CreatePaymentCuongcla", item);
+           
+            await _service.CreateAsync(item);
         }
     }
 }
