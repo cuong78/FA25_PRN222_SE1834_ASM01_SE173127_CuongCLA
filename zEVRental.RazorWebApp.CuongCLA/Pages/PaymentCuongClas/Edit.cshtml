@@ -585,6 +585,9 @@
                         <i class="fas fa-save me-2"></i>
                         Save Changes
                     </button>
+
+                    <input type="button" id="btnHubUpdate" value="Update by SignalRHub" class="btn btn-info" />
+
                 </div>
             </div>
         </div>
@@ -775,3 +778,39 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/zPaymentCuongclaHub").build();
+
+    connection.start().then(function () {
+        console.log("CuongCLA: Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("btnHubUpdate").addEventListener("click", function (event) {
+
+        var dataObj = JSON.stringify({
+            BookingId: document.getElementById("PaymentCuongCla_BookingId").value,
+            ProcessedBy: document.getElementById("PaymentCuongCla_ProcessedBy").value,
+            PaymentDate: document.getElementById("PaymentCuongCla_PaymentDate").value,
+            Amount: document.getElementById("PaymentCuongCla_Amount").value,
+            PaymentMethod: document.getElementById("PaymentCuongCla_PaymentMethod").value,
+            PaymentStatus: document.getElementById("PaymentCuongCla_PaymentStatus").value,
+            IsDeposit: document.getElementById("PaymentCuongCla_IsDeposit").checked,
+            DepositReturnAmount: document.getElementById("PaymentCuongCla_DepositReturnAmount").value,
+            Notes: document.getElementById("PaymentCuongCla_Notes").value,
+        });
+
+        connection.invoke("HubUpdate_PaymentCuongcla", dataObj).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    });
+
+</script>
+

@@ -35,5 +35,14 @@ namespace zEVRental.RazorWebApp.CuongCLA.hubs
            
             await _service.CreateAsync(paymentData);
         }
+
+        public async Task HubUpdate_PaymentCuongcla(string paymentRequestJsonString)
+        {
+            var paymentData = JsonConvert.DeserializeObject<PaymentCuongCla>(paymentRequestJsonString);
+
+            await Clients.All.SendAsync("Receive_UpdatePaymentCuongcla", paymentData);
+
+            await _service.UpdateAsync(paymentData);
+        }
     }
 }
